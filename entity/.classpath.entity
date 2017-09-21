@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="var" path="BTPN_LIB/antlr-2.7.7.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/asm-4.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/asm-commons-4.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/asm-tree-4.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/com.springsource.org.aopalliance-1.0.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-chain-1.2.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-codec.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-collections-3.2.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-dbcp-1.3.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-digester-2.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-httpclient.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-io-2.0.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-lang-2.4.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-lang3-3.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-modeler.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-pool-1.5.4.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/commons-validator-1.3.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/dom4j-1.6.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/filters-2.0.235.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/flatworm-2.0.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/freemarker-2.3.19.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/grizzly-framework-2.2.19.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/hibernate-commons-annotations-4.0.1.Final.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/hibernate-core-4.1.12.Final.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/hibernate-entitymanager-4.1.12.Final.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/i18n-core-1.4.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jackcess-1.2.4.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jasperreports-5.1.2.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jasypt-1.9.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/javassist-3.15.0-GA.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/javax.mail-1.3.3.01.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/javax.persistence-2.0.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/javax.servlet.jsp.jstl-1.2.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jboss-logging-3.1.0.GA.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jcaptcha-2.0-alpha-1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jcaptcha-api-1.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jcaptcha-integration-simple-servlet-2.0-alpha-1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/json-simple-1.1.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jta.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jxls-core-1.0.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/jxls-reader-1.0.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/log4j-1.2.14.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/mail.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/ognl-3.0.6.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/opendj-ldap-sdk-3.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.aop-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.asm-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.beans-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.context-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.context.support-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.core-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.expression-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.jdbc-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.orm-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.oxm-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.test-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.transaction-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/org.springframework.web-3.1.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/oro-2.0.8.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/poi-3.9-20121203.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/poi-ooxml-3.9-20121203.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/recaptcha4j-0.0.7.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/sitemesh-2.4.2.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/slf4j-log4j12-1.7.5.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/standard-1.0.6.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-bootstrap-plugin-1.6.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-conversation-scope-plugin-1.7.4.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-core-2.3.16.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-jquery-grid-plugin-3.7.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-jquery-plugin-3.7.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-jquery-richtext-plugin-3.7.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-jquery-tree-plugin-3.7.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-json-plugin-2.3.16.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-sitemesh-plugin-2.3.16.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/struts2-spring-plugin-2.3.16.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/velocity-1.6.4.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/velocity-tools-1.3.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/velocity-tools-view-1.0.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/webwork-2.2.7.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/wsdl4j-1.6.3.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/xwork-core-2.3.16.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
+	<classpathentry kind="var" path="BTPN_LIB/esapi-2.0.1.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/gson-2.3.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/kismiss.jar"/>
+	<classpathentry kind="var" path="BTPN_LIB/kismiss-csv.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.utility"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_79">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

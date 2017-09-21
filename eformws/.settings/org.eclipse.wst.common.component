@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="eform-ws">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="common-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/common/common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="service-interface-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service-interface/service-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="entity-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/entity/entity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="data-access-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/data-access/data-access">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="service-2.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/service/service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/eform-ws/build/classes"/>
+        <property name="context-root" value="eform-ws"/>
+    </wb-module>
+</project-modules>

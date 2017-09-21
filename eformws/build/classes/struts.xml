@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- start websphere configuration only -->
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.configuration.xml.reload" value="false"/>
+	<constant name="struts.i18n.reload" value="false"/>
+	<constant name="struts.action.excludePattern" value="/services/[a-zA-Z_0-9]*"/>
+	<!-- end websphere configuration only  -->
+	
+	<constant name="struts.action.extension" value="xhtml,,xml,json,action"/>
+	<constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.PrefixBasedActionMapper" />
+	<constant name="struts.mapper.prefixMapping" value="/rest:rest,:struts"/>
+	<!-- <constant name="struts.convention.action.suffix" value="Controller"/>
+	<constant name="struts.convention.action.mapAllMatches" value="true"/>
+	<constant name="struts.convention.default.parent.package" value="rest-default"/> -->
+	
+	<!-- use only for development
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true"/>
+	<constant name="struts.i18n.reload" value="true"/>
+	 -->
+	
+	<!-- <constant name="struts.action.extension" value="action"/> -->
+	<constant name="struts.custom.i18n.resources" value="resources" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+	<!-- <constant name="struts.mapper.class" value="com.metamorf.eform.web.util.SynchronizeActionMapper"/> -->
+	
+	<constant name="struts.multipart.maxSize" value="6291456"/>
+	
+	<package name="kickUser" namespace="/rest" extends="rest-default">
+		<action name="forceLogout" class="com.metamorf.eform.web.util.ForceLogoutController" method="forceLogout">
+		    <result name="success">/close.jsp</result>
+		</action>
+	</package>
+		
+	<package name="main" namespace="/" extends="struts-default, json-default">
+		<interceptors>
+		    <interceptor name="noCacheInterceptor" class="com.metamorf.eform.web.interceptor.NoCacheInterceptor"/>
+		    <interceptor name="csrfGuardInterceptor" class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+		    <interceptor name="appInterceptor" class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+		    <interceptor name="allowCrossDomainInterceptor" class="com.metamorf.eform.web.interceptor.AllowCrossDomainInterceptor"/><!--no-->
+		    <interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor"/>
+				<interceptor-ref name="appInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+            <result name="login">/loginbackup.jsp</result>
+            <result name="login_fo">/login_fobackup.jsp</result>
+	        <result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+	        <result name="error">/error.jsp</result>
+	        <result name="input">/error.jsp</result>
+	        <result name="close">/close.jsp</result>
+	        <result name="maintenance">/WEB-INF/pages/maintenance.jsp</result>
+	        <result name="sessionExpired">/sessionExpired.jsp</result>
+	        <result name="redirectLogin">/redirectLogin.jsp</result><!--no-->
+	        <result name="redirectBOLogin">/redirectBOLogin.jsp</result><!--no-->
+        </global-results>
+        
+        <action name="">
+     		<result>/index.html</result>
+ 		</action>
+        
+        <action name="blankPage">
+		    <result>/blankPage.jsp</result>
+		</action>
+		
+		<action name="begin" class="beginAction" method="begin">
+			<interceptor-ref name="rscfStack"/>
+			<result name="success" type="redirectAction">
+			    <param name="actionName">${redirectAction}</param>
+			    <param name="namespace">${namespace}</param>
+			    <param name="tab">tabs0</param>
+			</result>
+		</action>
+		
+		<action name="*Authentication" class="authenticationAction" method="{1}">
+			<result name="success">{1}Authentication.jsp</result>
+			
+			<result name="unauthorized">
+				<param name="error">401</param>
+				<param name="errorMessage">You are unauthorized!</param>
+			</result>
+		</action>
+        
+        <!-- START LOGIN BO -->
+		<action name="*Login" class="loginAction" method="{1}">
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="defaultStack" />
+			<result name="begin">/begin.jsp</result>
+		</action>
+		
+		<action name="getRCASBOKey" class="loginAction" method="getRCASKey">
+			<result name="rcaskey" type="json">
+				<param name="includeProperties">^fee58b1, ^fe3688, ^ee739b</param>
+			</result>
+		</action>
+		<!-- END LOGIN BO -->
+		
+		<!-- START LOGIN FO -->
+		<action name="*LoginFO" class="loginFOAction" method="{1}">
+			<interceptor-ref name="exception" />
+			<interceptor-ref name="defaultStack" />
+			<result name="begin" type="redirectAction">
+			    <param name="actionName">${redirectAction}</param>
+			    <param name="namespace">${namespace}</param>
+			    <param name="tab">tabs0</param>
+			</result>
+		</action>
+		
+		<action name="getRCASFOKey" class="loginFOAction" method="getRCASKey">
+			<result name="rcaskey" type="json">
+				<param name="includeProperties">^fee58b1, ^fe3688, ^ee739b</param>
+			</result>
+		</action>
+		<!-- END LOGIN FO -->
+		
+		<action name="locale" class="localeAction" method="execute">
+			<interceptor-ref name="rscfStack"/>
+		    <result name="success" type="redirectAction">
+		        <param name="actionName">${redirectAction}</param>
+		        <param name="namespace">${namespace}</param>
+		        <param name="tab">tabs0</param>
+		    </result>
+		</action>
+		
+		<action name="logAuditJqgridDetail" class="viewOwnActivityAction" method="logAuditJqgridDetail">
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<interceptor-ref name="rscfStack"/>
+		</action>
+	</package>
+	
+	<package name="login" namespace="/" extends="struts-default,json-default">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor" 
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="maintenance">/WEB-INF/pages/maintenance.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+		
+		<action name="changePassword" class="changePasswordAction" method="change">
+			<interceptor-ref name="rscfStack"/>
+			<result name="success">/changePassword.jsp</result>
+		</action>
+		
+		<action name="processChangePassword" class="processChangePasswordAction" method="process">
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<interceptor-ref name="rscfStack"/>
+			<result name="success">/changePassword.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- <include file="struts-main.xml"/> -->
+	<include file="struts-application.xml"/>
+</struts>

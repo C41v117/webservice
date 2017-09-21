@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	
+	<appender name="performancemonitorlog" class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="/apps/eform/logs/performancemonitor-ws.log"/>
+	    <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/>/> -->
+		<param name="maxBackupIndex" value="20" />
+		<param name="maxFileSize" value="100MB" /> 
+		<layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="[%d{ISO8601}] [%t] - ,%m,%n"/>
+		</layout>
+    </appender>
+    
+	<appender name="performancemonitorlogAsyncAppender" class="org.apache.log4j.AsyncAppender"> 
+		 <param name="BufferSize" value="128" />
+		 <param name="Blocking" value="true" />
+		 <appender-ref ref="performancemonitorlog" /> 
+	</appender>
+    
+	<appender name="schedulerlog" class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="/apps/eform/logs/scheduler-ws.log"/>
+	    <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+	    <param name="maxBackupIndex" value="20" />
+	    <param name="maxFileSize" value="100MB" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+	    </layout>
+    </appender>
+   
+    <appender name="applog" class="org.apache.log4j.RollingFileAppender">
+            <param name="File" value="/apps/eform/logs/web-ws.log"/>
+            <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/>/> -->
+            <param name="maxBackupIndex" value="20" />
+            <param name="maxFileSize" value="100MB" /> 
+            <layout class="org.apache.log4j.PatternLayout">
+                <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+            </layout>
+    </appender>
+    
+   <appender name="workflowlog" class="org.apache.log4j.RollingFileAppender">
+            <param name="File" value="/apps/eform/logs/workflow-ws.log"/>
+            <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+            <param name="maxBackupIndex" value="20" />
+            <param name="maxFileSize" value="100MB" /> 
+            <layout class="org.apache.log4j.PatternLayout">
+                <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+            </layout>
+    </appender>
+    
+    <appender name="webserviceslog" class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="/apps/eform/logs/webservice-ws.log"/>
+	    <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+	    <param name="maxBackupIndex" value="20" />
+	    <param name="maxFileSize" value="100MB" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+	    </layout>
+    </appender>
+       
+    <appender name="mobiliserlog" class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="/apps/eform/logs/mobiliser-ws.log"/>
+	    <!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+	    <param name="maxBackupIndex" value="20" />
+	    <param name="maxFileSize" value="100MB" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+	    </layout>
+    </appender>
+    
+   <appender name="springlog" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/apps/eform/logs/spring-web-fo-ws.log"/>
+		<!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+		<param name="maxBackupIndex" value="20" />
+		<param name="maxFileSize" value="100MB" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="strutslog" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/apps/eform/logs/struts-web-fo-ws.log" />
+		<!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+		<param name="maxBackupIndex" value="20" />
+		<param name="maxFileSize" value="100MB" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n" />
+		</layout>
+	</appender>
+    
+    <appender name="interceptorlog" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/apps/eform/logs/interceptor-web-fo-ws.log"/>
+		<!-- <param name="DatePattern" value="'.'yyyy-MM-dd"/> -->
+		<param name="maxBackupIndex" value="20" />
+       	<param name="maxFileSize" value="100MB" />
+		<layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+		</layout>
+    </appender>
+    
+     <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+        	<param name="ConversionPattern" value="[${SERVER_NAME_LOG}] [%d{ISO8601}] [%-5p] [%t] {%F:%M:%L} - %m%n"/>
+            <!-- <param name="ConversionPattern"
+                value="%-10r %-5p [%t] (%F:%M:%L) - %m%n" /> -->
+        </layout>
+    </appender>
+    
+	<logger name="com.metamorf.eform.service.quartz">
+        <level value="debug" />
+        <appender-ref ref="schedulerlog"/>
+    </logger>
+    
+    
+    <logger name="com.metamorf.eform.service.workflow">
+        <level value="debug" />
+        <appender-ref ref="workflowlog"/>
+    </logger>
+    
+    <logger name="com.metamorf.eform.jaxws.service">
+        <level value="debug" />
+        <appender-ref ref="webserviceslog"/>
+    </logger>
+    
+    <logger name="com.metamorf.eform.jaxws.client">
+        <level value="debug" />
+        <appender-ref ref="mobiliserlog"/>
+    </logger>
+    
+    <logger name="org.apache.struts2">
+        <level value="ERROR" />
+        <appender-ref ref="applog"/>
+    </logger>
+	
+    <logger name="com.metamorf.eform">
+        <level value="ERROR" />
+        <appender-ref ref="applog"/>
+    </logger>
+    
+    <logger name="org.springframework">
+        <level value="ERROR" />
+        <appender-ref ref="springlog"/>
+        </logger>
+    
+    <logger name="com.opensymphony.xwork2.interceptor">
+    	<level value="ERROR" />
+        <appender-ref ref="interceptorlog"/>
+    </logger>
+    
+    <logger name="com.opensymphony.xwork2">
+    	<level value="ERROR" />
+        <appender-ref ref="strutslog"/>
+    </logger>
+    
+    <logger name="org.owasp.csrfguard">
+    	<level value="ERROR" />
+    </logger>
+        
+	<logger name="performancemonitor">
+        <level value="debug" />
+        <appender-ref ref="performancemonitorlogAsyncAppender"/>
+    </logger>
+    
+   <!-- <logger name="org.springframework.ws">
+       <level value="debug" />
+       <appender-ref ref="console"/>
+   </logger>
+    
+   <logger name="javax.xml.bind">
+        <level value="trace" />
+        <appender-ref ref="console"/>
+    </logger> -->
+    
+    <!-- <categoryFactory class="org.owasp.esapi.reference.Log4JLoggerFactory"/> -->
+    
+</log4j:configuration>
+

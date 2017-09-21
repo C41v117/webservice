@@ -1,0 +1,11 @@
+Nasabah High Risk dengan detail nasabah sebagai berikut: %0A
+Pemohon 1 : %0A
+Nama Nasabah sesuai ID/Nama Badan : $customer.applicantName %0A
+Customer ID : $customer.id %0A
+User ID : $userAslContent.id %0A
+Status : Reject %0A
+Alasan : %0A
+Mohon tidak menekan tombol enter pada saat pengisian field alasan %0A
+Best Regards %0A
+$userAslContent.fullName %0A
+Mohon tidak mengubah/menghapus segala format yang ada pada e-mail ini dan anda diperkenankan hanya mengisi alasan atas keputusan yang anda berikan terhadap nasabah ini.

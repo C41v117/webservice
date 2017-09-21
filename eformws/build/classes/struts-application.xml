@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="verifier" extends="struts-default,json-default"
+		namespace="/verifier">
+			<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+			<result name="notask">/notask.jsp</result>
+		</global-results>
+		
+		<action name="*Verifier" class="verifierAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Verifier.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*EformApproval" class="eformApprovalAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}EformApproval.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="eddapproval" extends="struts-default,json-default"
+		namespace="/eddapproval">
+			<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+			<result name="notask">/notask.jsp</result>
+		</global-results>
+		
+		<action name="*EddApproval" class="eddApprovalAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}EddApproval.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="callback" extends="struts-default,json-default"
+		namespace="/callback">
+			<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+			<result name="notask">/notask.jsp</result>
+		</global-results>
+		
+		<action name="*Callback" class="callbackAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Callback.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="settings" extends="struts-default,json-default"
+		namespace="/settings">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+
+		<action name="treeSettings" class="settingsAction" method="tree">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">treeSettings.jsp</result>
+		</action>
+
+		<action name="*SysParam" class="sysParamAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}SysParam.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="listJsonMoneyFormat" class="sysParamAction"
+			method="listJsonMoneyFormat">
+			<result name="moneyFormat" type="json">
+				<param name="includeProperties">^map, ^map.aSep, ^map.aDec, ^map.exchangeFormat</param>
+			</result>
+		</action>
+
+		<action name="*LookupGroup" class="lookupGroupAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}LookupGroup.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*Lookup" class="lookupAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Lookup.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="jsonLookup" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^lookupCode</param>
+			</result>
+		</action>
+		
+		<action name="*Region" class="regionAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Region.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*Profiler" class="lookupAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Profiler.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*Archive" class="archiveAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Archive.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*BranchLocation" class="branchLocationAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}BranchLocation.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*ContentManager" class="contentManagerAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}ContentManager.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*WorkflowParameter" class="workflowParameterAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}WorkflowParameter.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*Holiday" class="holidayAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Holiday.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">
+					^selectYear,
+					^isYearWaitingForApproval,
+					^holidayList\[\d+\]\.id,
+					^holidayList\[\d+\]\.holidayDate,
+					^holidayList\[\d+\]\.name,
+					^holidayList\[\d+\]\.entity_id,
+					^holidayList\[\d+\]\.isWeekend,
+					^holidayList\[\d+\]\.approvalStatusDescription,
+					^holidayList\[\d+\]\.latestSuggestion,
+					^holidayList\[\d+\]\.latestSuggestor,
+					^holidayList\[\d+\]\.latestApproval,
+					^holidayList\[\d+\]\.latestApprover
+				</param>
+			</result>
+		</action>
+		
+		
+		
+		<action name="*Area" class="areaAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Area.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="jsonArea" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^areaCode</param>
+			</result>
+		</action>
+		
+		<action name="*ExceptionHandling" class="exceptionHandlingAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}ExceptionHandling.jsp</result>
+			<result name="download" type="stream">
+				<!--these changes allow you to use inline and attachment download process-->
+				<param name="contentType">application/${fileType}</param>
+				<param name="inputName">reportFile</param>
+				<param name="contentDisposition">${disposition};filename=${filename}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="jsonArea" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^areaCode</param>
+			</result>
+		</action>		
+		
+	</package>
+
+	<package name="security" extends="struts-default,json-default"
+		namespace="/security">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+				<interceptor-ref name="validation">
+					<param name="alwaysInvokeValidate">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+
+		<action name="treeSecurity" class="securityAction" method="tree">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">treeSecurity.jsp</result>
+		</action>
+
+		<action name="*SecurityParam" class="securityParamAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}SecurityParam.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*InternalUser" class="internalUserAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}InternalUser.jsp</result>
+			<result name="download" type="stream">
+				<!--these changes allow you to use inline and attachment download process-->
+				<param name="contentType">application/${fileType}</param>
+				<param name="inputName">reportFile</param>
+				<param name="contentDisposition">${disposition};filename=${filename}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="ajaxjson" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="showInternalUserSelection" class="internalUserAction" method="select">
+			<result name="success">/selectUser.jsp</result>
+		</action>
+		
+		<action name="internalUserPickList" class="internalUserAction" method="findAllInternalUserForPickList">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^gridModel\[\d+\]\.id,^gridModel\[\d+\]\.userName,^gridModel\[\d+\]\.fullName</param>
+			</result>
+		</action>
+		
+		<action name="*Role" class="roleAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Role.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="findUser" class="internalUserAction" method="findUser">
+			<interceptor-ref name="rscfStack" />
+			<result name="ajaxjson" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">tempUser,tempFirstname,tempEmail,tempMobileNo</param>
+			</result>
+		</action>
+
+	</package>
+
+	<package name="mytask" extends="struts-default,json-default"
+		namespace="/mytask">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="noCacheStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+			</interceptor-stack>
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+			<interceptor-stack name="exceptCacheStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+
+		<action name="myTaskAction" class="myTaskAction" method="tree">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">treeMyTask.jsp</result>
+		</action>
+
+		<action name="countPendingMyTask" class="myTaskAction"
+			method="retrievePendingTaskCount">
+			<interceptor-ref name="noCacheStack" />
+			<result name="jsonSuccess" type="json">
+				<param name="includeProperties">pendingTask</param>
+			</result>
+		</action>
+
+		<action name="checkAllowApproval" class="masterDataApprovalAction"
+			method="checkAllowApproval">
+			<interceptor-ref name="noCacheStack" />
+			<result name="jsonSuccess" type="json">
+				<param name="includeProperties">listAllowApproval</param>
+			</result>
+		</action>
+
+		<action name="*MasterDataApproval" class="masterDataApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*SysParamApproval" class="sysParamApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*ContentManagerApproval" class="contentManagerApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*WorkflowParameterApproval" class="workflowParameterApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*HolidayApproval" class="holidayApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*SecurityParamApproval" class="securityParamApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*RoleApproval" class="roleApprovalAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*LookupApproval" class="lookupApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*RegionApproval" class="regionApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*AreaApproval" class="areaApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*BranchLocationApproval" class="branchLocationApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="*InternalUserApproval" class="internalUserApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="jsonErrorAssign" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^errorTaskList\[\d+\]\.id,^errorTaskList\[\d+\]\.message, ^errorAction</param>
+			</result>
+		</action>
+		
+		<action name="*ExceptionHandlingApproval" class="exceptionHandlingApprovalAction"
+			method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}MasterDataApproval.jsp</result>
+			<result name="viewModification">modificationData.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="jsonErrorAssign" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">^errorTaskList\[\d+\]\.id,^errorTaskList\[\d+\]\.message, ^errorAction</param>
+			</result>
+		</action>
+		
+		<!-- tambahan untuk RCAS --> 
+		<action name="findUser" class="internalUserApprovalAction" method="findUser">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="ajaxjson" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">tempUser,tempFirstname,tempEmail,tempMobileNo</param>
+			</result>
+		</action>
+		
+	</package>
+
+	<package name="homeFO" extends="struts-default,json-default"
+		namespace="/homeFO">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+
+		<action name="homeFOAction" class="homeFOAction" method="tree">
+			<interceptor-ref name="rscfStack" />
+			<result name="success">homeFO.jsp</result>
+		</action>
+
+	</package>
+	
+	<package name="viewownactivity" extends="struts-default,json-default"
+		namespace="/viewownactivity">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+
+		<action name="*ViewOwnActivity" class="viewOwnActivityAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}ViewOwnActivity.jsp</result>
+			<result name="download" type="stream">
+				<!--these changes allow you to use inline and attachment download process-->
+				<param name="contentType">application/${fileType}</param>
+				<param name="inputName">reportFile</param>
+				<param name="contentDisposition">${disposition};filename=${filename}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*ViewOwnActivityFO" class="viewOwnActivityFOAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}ViewOwnActivityFO.jsp</result>
+			<result name="download" type="stream">
+				<!--these changes allow you to use inline and attachment download process-->
+				<param name="contentType">application/${fileType}</param>
+				<param name="inputName">reportFile</param>
+				<param name="contentDisposition">${disposition};filename=${filename}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+	</package>
+	
+	<package name="workmonitoring" extends="struts-default,json-default"
+	namespace="/workmonitoring">
+			<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+		
+		<action name="treeWorkflowMonitoring" class="workflowMonitoringAction" method="tree">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">treeWorkflowMonitoring.jsp</result>
+		</action>
+		
+		<action name="*WorkInProgress" class="workInProgressAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}WorkInProgress.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*TaskList" class="taskListAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}TaskList.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*Leads" class="runningApprovalAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Leads.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="report" extends="struts-default,json-default"
+		namespace="/report">
+			<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="csrfGuardInterceptor"
+				class="com.metamorf.eform.web.interceptor.CsrfGuardInterceptor" />
+			<interceptor name="noCacheInterceptor"
+				class="com.metamorf.eform.web.interceptor.NoCacheInterceptor" />
+			<interceptor name="appInterceptor"
+				class="com.metamorf.eform.web.interceptor.ApplicationInterceptor" />
+			<interceptor-stack name="rscfStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="noCacheInterceptor" />
+				<interceptor-ref name="appInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="enterLogin" type="redirect">/relogin.jsp</result>
+			<result name="login">/loginbackup.jsp</result>
+			<result name="login_fo">/login_fobackup.jsp</result>
+			<result name="unauthorized">/WEB-INF/pages/unauthorized.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="close">/close.jsp</result>
+			<result name="sessionExpired">/sessionExpired.jsp</result>
+		</global-results>
+		
+		<action name="*SubmitFormReport" class="submitFormReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}SubmitForm.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*OutstandingFormReport" class="outstandingFormReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}OutstandingForm.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*AcquisitionReport" class="acquisitionReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Acquisition.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*FinishedFormReport" class="finishedFormReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}FinishedForm.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*RejectedFormReport" class="rejectedFormReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}RejectedForm.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*ReturnRepairFormReport" class="returnRepairFormReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}ReturnRepairForm.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*SlaReport" class="slaReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Sla.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*ProductivityReport" class="productivityReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}Productivity.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="*UserReport" class="userReportAction" method="{1}">
+			<interceptor-ref name="rscfStack" />
+			<interceptor-ref name="csrfGuardInterceptor"/>
+			<result name="success">{1}UserReport.jsp</result>
+			<result name="jsonSuccess" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+		
+</struts>
