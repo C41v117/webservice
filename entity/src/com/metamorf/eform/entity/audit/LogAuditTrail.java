@@ -29,11 +29,7 @@ import com.softtech.kismiss.property.Kismiss;
 import com.softtech.kismiss.property.Property;
 
 
-@Entity(name = "LOG_AUDIT_TRAIL")
-@Kismiss(name = "VIEW_OWN_ACTIVITY", columnAutoSize = true, paperType= PaperType.A4, orientation=Orientation.Landscape, 
-isTitleEveryPage=false, pageNumberAlignment=HorizontalAlignment.Center, noDataFound="Data tidak ditemukan")
-@Header(columnHeaderHeight=25, isColumnHeaderBold=true, columnHeaderColor="#BDBBBC", lineWidth=0.5)
-@Detail(lineWidth=0.5)
+//@Entity(name = "LOG_AUDIT_TRAIL")
 public class LogAuditTrail implements Serializable{
 	
 	private static final long serialVersionUID = 5694382991395130824L;

@@ -46,6 +46,8 @@ public class SystemConstant {
 		public static final String YA 		= "YA";
 		public static final String TIDAK 	= "TIDAK";
 	}*/
+
+	public static final String BREZYN_REQUEST_PARAM_NAME = "brezynReq";
 	
 	public static final String IS_PROCEED_CARD_PERSO_ALLOWED = "IS_PROCEED_CARD_PERSO_ALLOWED";
 

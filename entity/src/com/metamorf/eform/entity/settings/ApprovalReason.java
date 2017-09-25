@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 import com.metamorf.eform.entity.mytask.MasterDataApproval;
 
-@Entity(name="APPROVAL_REASON")
+//@Entity(name="APPROVAL_REASON")
 public class ApprovalReason implements Serializable{
 	/*TODO
 	 * Add action so that we know this approval reason is inserted on what action

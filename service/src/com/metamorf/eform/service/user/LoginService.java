@@ -1,12 +1,8 @@
 package com.metamorf.eform.service.user;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +13,6 @@ import com.metamorf.eform.common.paging.PagingWrapper;
 import com.metamorf.eform.data.access.user.ILoginDAO;
 import com.metamorf.eform.data.access.user.IUserDAO;
 import com.metamorf.eform.entity.user.RuntimeUserLogin;
-import com.metamorf.eform.entity.user.User;
 import com.metamorf.eform.interfaces.core.IBaseService;
 import com.metamorf.eform.interfaces.user.ILoginService;
 
@@ -44,29 +39,29 @@ public class LoginService implements ILoginService, IBaseService<RuntimeUserLogi
 		loginDAO.saveOrUpdate(anObject);
 	}
 
-	public void register(RuntimeUserLogin runtimeUser) throws SystemException {
-		loginDAO.saveOrUpdate(runtimeUser);
-		User user = userDAO.findByPK(runtimeUser.getUserId());
-		user.setLastLogInDate(runtimeUser.getLoginTime());
-		user.setLastLogInFrom(runtimeUser.getRemoteAddress());
-		userDAO.saveOrUpdate(user);
-	}
-
-	public void unregister(Long runtimeUserId) throws SystemException {
-		try {
-			LOGGER.info("start LoginService.unregistering {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
-			loginDAO.realDelete(runtimeUserId);
-			LOGGER.info("delete RuntimeUserLogin {}", URLEncoder.encode(String.valueOf(runtimeUserId), "UTF-8"));
-			User user = userDAO.findByPK(runtimeUserId);
-			user.setLastLogOutDate(new Date());
-			userDAO.saveOrUpdate(user);
-			LOGGER.info("updated User {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
-			LOGGER.info("finish LoginService.unregistering {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void register(RuntimeUserLogin runtimeUser) throws SystemException {
+//		loginDAO.saveOrUpdate(runtimeUser);
+//		User user = userDAO.findByPK(runtimeUser.getUserId());
+//		user.setLastLogInDate(runtimeUser.getLoginTime());
+//		user.setLastLogInFrom(runtimeUser.getRemoteAddress());
+//		userDAO.saveOrUpdate(user);
+//	}
+//
+//	public void unregister(Long runtimeUserId) throws SystemException {
+//		try {
+//			LOGGER.info("start LoginService.unregistering {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
+//			loginDAO.realDelete(runtimeUserId);
+//			LOGGER.info("delete RuntimeUserLogin {}", URLEncoder.encode(String.valueOf(runtimeUserId), "UTF-8"));
+//			User user = userDAO.findByPK(runtimeUserId);
+//			user.setLastLogOutDate(new Date());
+//			userDAO.saveOrUpdate(user);
+//			LOGGER.info("updated User {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
+//			LOGGER.info("finish LoginService.unregistering {}", URLEncoder.encode(StringUtils.trimToEmpty(String.valueOf(runtimeUserId)), "UTF-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	public RuntimeUserLogin findByReferencesId(Long referencesPK)
 			throws SystemException {
@@ -157,5 +152,17 @@ public class LoginService implements ILoginService, IBaseService<RuntimeUserLogi
 	@Override
 	public void delete(String userName) throws SystemException {
 		loginDAO.realDelete(userName);
+	}
+
+	@Override
+	public void register(RuntimeUserLogin userLogin) throws SystemException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unregister(Long userPK) throws SystemException {
+		// TODO Auto-generated method stub
+		
 	}
 }

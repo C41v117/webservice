@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.metamorf.eform.common.enumer.ModuleType;
 
-@Entity(name="VERSION")
+//@Entity(name="VERSION")
 public class Version {
 	
 	public static final String[] MAINTENANCE_LIST_FIELDS = {"id", "moduleType", "version"};

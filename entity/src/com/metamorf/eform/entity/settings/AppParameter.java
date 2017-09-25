@@ -16,7 +16,7 @@ import com.google.gson.annotations.Expose;
 import com.metamorf.eform.common.core.SystemConstant;
 import com.metamorf.eform.entity.core.SimpleApprovalObject;
 
-@Entity(name="APP_PARAMETER")
+//@Entity(name="APP_PARAMETER")
 @DynamicUpdate(value=true)
 public class AppParameter extends SimpleApprovalObject implements Serializable{
 

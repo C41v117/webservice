@@ -11,8 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-//TODO WILLY harus diorder, lihat fsd 2 hal 7 dan 7b
-@Entity(name="APP_FUNCTION")
+//@Entity(name="APP_FUNCTION")
 public class AppFunction implements Serializable{
 	
 	private static final long serialVersionUID = 3763772113597670926L;

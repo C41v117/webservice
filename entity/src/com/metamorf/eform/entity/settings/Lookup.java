@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.metamorf.eform.entity.core.SimpleApprovalObject;
 
-@Entity(name="LOOKUP")
+//@Entity(name="LOOKUP")
 public class Lookup extends SimpleApprovalObject implements /*Comparable<Lookup>, */Serializable{
 
 	private static final long serialVersionUID = 1419309428498671519L;

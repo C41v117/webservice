@@ -17,16 +17,10 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">	org.hibernate.dialect.SQLServer2008Dialect</prop>
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop> -->
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<!-- <prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop> 
-					<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop> 
-					<prop key="hibernate.cache.use_second_level_cache">true</prop> <prop key="hibernate.cache.use_query_cache">true</prop> 
-					<prop key="hibernate.cache.provider_configuration_file_resource_path" >ehcache.xml"</prop> -->
 				<prop key="hibernate.jdbc.batch_size">20</prop>
 			</props>
 		</property>
@@ -36,50 +30,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	    <property name="dataSource" ref="dataSourceOracle"/>
-	</bean>
-
-	<bean id="transactionManagerOrcl"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactoryOrcl" />
-	</bean>
-
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="sessionFactoryOrcl"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSourceOracle" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.connection.isolation">1</prop>
-				<prop key="hibernate.jdbc.batch_size">20</prop>
-			</props>
-		</property>
-	</bean>
-
-	<bean id="daoTemplateOrcl" abstract="true">
-		<property name="sessionFactory" ref="sessionFactoryOrcl" />
-	</bean>
-	
-	<bean id="txProxyTemplateOrcl" abstract="true"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager" ref="transactionManagerOrcl" />
-		<property name="transactionAttributes">
-			<props>
-				<prop key="find*,load*,get*">PROPAGATION_SUPPORTS,ISOLATION_READ_COMMITTED,readOnly</prop>
-				<prop key="*">PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED</prop>
-			</props>
-		</property>
-	</bean>
-
 	<bean id="txProxyTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager" ref="transactionManager" />
@@ -164,10 +119,6 @@
 		class="com.metamorf.eform.data.access.mytask.MasterDataApprovalDAO" />
 	<bean id="lookupGroupDAO" parent="daoTemplate"
 		class="com.metamorf.eform.data.access.settings.LookupGroupDAO" />
-	<bean id="roleDAO" parent="daoTemplate"
-		class="com.metamorf.eform.data.access.security.RoleDAO" />
-	<bean id="appRoleFunctionDAO" parent="daoTemplate"
-		class="com.metamorf.eform.data.access.security.AppRoleFunctionDAO" />
 	<bean id="auditTrailDAO" parent="daoTemplate"
 		class="com.metamorf.eform.data.access.audit.AuditTrailDAO" />
 	<bean id="fileChunkDAO" parent="daoTemplate"
@@ -210,17 +161,6 @@
 		<property name="appFunctionDAO" ref="appFunctionDAO" />
 	</bean>
 
-	<bean id="appRoleFunctionService" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="appRoleFunctionServiceTarget" />
-		</property>
-	</bean>
-
-	<bean id="appRoleFunctionServiceTarget" class="com.metamorf.eform.service.security.AppRoleFunctionService">
-		<property name="appRoleFunctionDAO" ref="appRoleFunctionDAO" />
-		<property name="roleDAO" ref="roleDAO" />
-	</bean>
-	
 	<bean id="auditTrailService" scope="singleton" parent="txProxyTemplate">
 		<property name="target">
 			<ref local="auditTrailServiceTarget" />
@@ -250,8 +190,6 @@
 
 	<bean id="userServiceTarget" class="com.metamorf.eform.service.user.UserService">
 		<property name="userDAO" ref="userDAO" />
-		<property name="roleDAO" ref="roleDAO" />
-		<property name="appRoleFunctionDAO" ref="appRoleFunctionDAO"/>
 	</bean>
 	
 	<bean id="lookupService" scope="singleton" parent="txProxyTemplate">
@@ -274,25 +212,6 @@
 	<bean id="myTaskPendingServiceTarget" class="com.metamorf.eform.service.mytask.MyTaskPendingService">
 	</bean>
 
-	<bean id="masterDataApprovalService" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="masterDataApprovalServiceTarget" />
-		</property>
-	</bean>
-
-	<bean id="masterDataApprovalServiceTarget" class="com.metamorf.eform.service.mytask.MasterDataApprovalService">
-		<property name="masterDataApprovalDAO" ref="masterDataApprovalDAO" />
-		<property name="appParameterDAO" ref="appParameterDAO" />
-		<property name="lookupService" ref="lookupService" />
-		<property name="appRoleFunctionService" ref="appRoleFunctionService" />
-		<property name="userService" ref="userService" />
-		<property name="roleDAO" ref="roleDAO" />
-		<property name="lookupDAO" ref="lookupDAO" />
-		<property name="userDAO" ref="userDAO" />
-		<property name="digester" ref="digester"/>
-		<property name="versionDAO" ref="versionDAO" />
-	</bean>
-	
 	<bean id="versionServiceTarget" class="com.metamorf.eform.service.master.VersionService">
 		<constructor-arg ref="versionDAO" />
 	</bean>
@@ -303,7 +222,6 @@
 		</property>
 	</bean>
 
-
 	<bean id="lookupGroupServiceTarget" class="com.metamorf.eform.service.settings.LookupGroupService">
 		<constructor-arg ref="lookupGroupDAO" />
 	</bean>
@@ -312,16 +230,6 @@
 		<property name="target">
 			<ref local="lookupGroupServiceTarget" />
 		</property>
-	</bean>
-
-	<bean id="roleService" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="roleServiceTarget" />
-		</property>
-	</bean>
-
-	<bean id="roleServiceTarget" class="com.metamorf.eform.service.security.RoleService">
-		<property name="roleDAO" ref="roleDAO" />
 	</bean>
 
 	<bean id="fileChunkService" scope="singleton" parent="txProxyTemplate">
@@ -335,20 +243,6 @@
 	</bean>
 	
 	<!-- validator declaration -->
-	<bean id="masterDataApprovalValidator" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="masterDataApprovalValidatorTarget" />
-		</property>
-	</bean>
-	
-	<bean id="masterDataApprovalValidatorTarget"
-		class="com.metamorf.eform.service.validator.MasterDataApprovalValidator">
-		<property name="masterDataApprovalDAO" ref="masterDataApprovalDAO" />
-		<property name="userDAO" ref="userDAO" />
-		<property name="lookupDAO" ref="lookupDAO" />
-		<property name="roleDAO" ref="roleDAO" />
-	</bean>
-
 	<bean id="appParameterValidator" scope="singleton" parent="txProxyTemplate">
 		<property name="target">
 			<ref local="appParameterValidatorTarget" />
@@ -356,17 +250,6 @@
 	</bean>
 
 	<bean id="appParameterValidatorTarget" class="com.metamorf.eform.service.validator.AppParameterValidator" />
-
-	<bean id="userValidator" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="userValidatorTarget" />
-		</property>
-	</bean>
-
-	<bean id="userValidatorTarget" class="com.metamorf.eform.service.validator.UserValidator">
-		<property name="userDAO" ref="userDAO" />
-		<property name="masterDataApprovalDAO" ref="masterDataApprovalDAO" />
-	</bean>
 
 	<bean id="lookupValidator" scope="singleton" parent="txProxyTemplate">
 		<property name="target">
@@ -378,26 +261,16 @@
 		<property name="lookupDAO" ref="lookupDAO" />
 		<property name="masterDataApprovalDAO" ref="masterDataApprovalDAO" />
 	</bean>
-	
-	<bean id="roleValidator" scope="singleton" parent="txProxyTemplate">
-		<property name="target">
-			<ref local="roleValidatorTarget" />
-		</property>
-	</bean>
 
-	<bean id="roleValidatorTarget" class="com.metamorf.eform.service.validator.RoleValidator">
-		<property name="roleDAO" ref="roleDAO" />
-		<property name="masterDataApprovalDAO" ref="masterDataApprovalDAO" />
-	</bean>
-	
-	<bean id="basicAuthenticationProvider" scope="singleton" parent="txProxyTemplate">
+	<bean id="passwordAuthenticationService" scope="singleton" parent="txProxyTemplate">
 		<property name="target">
-			<ref local="basicAuthenticationProviderTarget" />
+			<ref local="passwordAuthenticationServiceTarget" />
 		</property>
 	</bean>
 	
-	<bean id="basicAuthenticationProviderTarget" class="com.metamorf.eform.service.authentication.BasicAuthenticationProvider">
-		<property name="userDAO" ref="userDAO" />
+	<bean id="passwordAuthenticationServiceTarget"
+		class="com.metamorf.eform.service.authentication.PasswordAuthenticationService">
+		<constructor-arg ref="digester" />
 	</bean>
 	
 </beans>

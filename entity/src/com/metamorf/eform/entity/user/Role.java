@@ -14,7 +14,7 @@ import com.metamorf.eform.common.core.SystemConstant;
 import com.metamorf.eform.entity.core.SimpleApprovalObject;
 import com.metamorf.eform.entity.settings.UserGroupAccessNode;
 
-@Entity(name="APP_ROLE")
+//@Entity(name="APP_ROLE")
 public class Role extends SimpleApprovalObject {
 
 	private static final long serialVersionUID = -4789059886967810330L;

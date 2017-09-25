@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "RUNTIME_USER_LOGIN")
+//@Entity
+//@Table(name = "RUNTIME_USER_LOGIN")
 public class RuntimeUserLogin implements Serializable{
 
 	private static final long serialVersionUID = 3757200249064267029L;

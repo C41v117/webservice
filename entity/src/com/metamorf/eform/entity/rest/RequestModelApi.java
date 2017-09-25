@@ -1,6 +1,6 @@
 package com.metamorf.eform.entity.rest;
 
-public class RequestModelApi extends RequestModelMobile{
+public class RequestModelApi extends CLVReq{
 	
 	private String json;
 	private String token;

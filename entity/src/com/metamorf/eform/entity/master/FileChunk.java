@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 import com.metamorf.eform.common.enumer.ImageType;
 
-@Entity(name = "file_chunk")
+//@Entity(name = "file_chunk")
 public class FileChunk {
 	
 	public static final String ID = "id";

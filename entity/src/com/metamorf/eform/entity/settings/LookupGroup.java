@@ -12,8 +12,8 @@ import javax.persistence.UniqueConstraint;
 
 import com.metamorf.eform.common.core.SystemConstant;
 
-@Entity
-@Table(name = "LOOKUP_GROUP", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+//@Entity
+//@Table(name = "LOOKUP_GROUP", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
 public class LookupGroup  implements Serializable {
 	/**
 	 * 

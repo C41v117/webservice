@@ -27,7 +27,7 @@ import com.metamorf.eform.common.core.SystemConstant;
 import com.metamorf.eform.common.core.SystemConstant.ProjectType;
 import com.metamorf.eform.entity.settings.ApprovalReason;
 
-@Entity(name="MASTER_DATA_APPROVAL")
+//@Entity(name="MASTER_DATA_APPROVAL")
 @DynamicUpdate(value=true)
 public class MasterDataApproval implements Serializable{
 

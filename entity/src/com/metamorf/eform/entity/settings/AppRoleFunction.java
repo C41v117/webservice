@@ -18,7 +18,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.ForeignKey;
 
-@Entity(name="APP_ROLE_FUNCTION")
+//@Entity(name="APP_ROLE_FUNCTION")
 public class AppRoleFunction implements Serializable {
 
 	// Fields
