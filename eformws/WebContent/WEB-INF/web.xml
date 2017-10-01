@@ -18,7 +18,8 @@
     <param-value>
 			/WEB-INF/connection.xml,
 			/WEB-INF/service-applicationContext.xml,
-			/WEB-INF/security-context.xml
+			/WEB-INF/security-context.xml,
+			/WEB-INF/scheduler-context.xml
 		</param-value>
   </context-param>
   <filter>

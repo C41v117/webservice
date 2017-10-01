@@ -59,6 +59,30 @@ public class UserDAO extends AbstractHibernate4DAO<User, Long> implements IUserD
 		else
 			return null;
 	}
+	
+	@Override
+	public User findByEmail(String email) throws SystemException{
+		List<SearchFilter> filters = new ArrayList<SearchFilter>();
+		filters.add(new SearchFilter(User.EMAIL, Operator.EQUALS, email));
+		List<User> result = super.findAll(filters, null, null);
+		
+		if (result.size() > 0) 
+			return result.get(0);
+		else
+			return null;
+	}
+	
+	@Override
+	public User findByVerificationToken(String token) throws SystemException{
+		List<SearchFilter> filters = new ArrayList<SearchFilter>();
+		filters.add(new SearchFilter(User.VERIFICATION_TOKEN, Operator.EQUALS, token));
+		List<User> result = super.findAll(filters, null, null);
+		
+		if (result.size() > 0) 
+			return result.get(0);
+		else
+			return null;
+	}
 
 	@Override
 	public User findById(Long id) throws SystemException {

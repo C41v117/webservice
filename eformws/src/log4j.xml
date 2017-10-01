@@ -137,9 +137,10 @@
         </layout>
     </appender>
     
-	<logger name="com.metamorf.eform.service.quartz">
+	<logger name="com.metamorf.eform.web.quartz">
         <level value="debug" />
         <appender-ref ref="schedulerlog"/>
+        <appender-ref ref="console"/>
     </logger>
     
     <logger name="com.metamorf.eform.service.workflow">

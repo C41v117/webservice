@@ -15,6 +15,8 @@ public class User implements Serializable{
 	private static final long serialVersionUID = -819480506707870364L;
 
 	public static final String USERNAME = "username";
+	public static final String EMAIL = "email";
+	public static final String VERIFICATION_TOKEN = "verificationToken";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -65,6 +67,9 @@ public class User implements Serializable{
 	
 	@Column(name="TOKEN")
 	private String token;
+	
+	@Column(name="VERIFICATION_TOKEN")
+	private String verificationToken;
 
 	public Long getId() {
 		return id;
@@ -192,6 +197,14 @@ public class User implements Serializable{
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getVerificationToken() {
+		return verificationToken;
+	}
+
+	public void setVerificationToken(String verificationToken) {
+		this.verificationToken = verificationToken;
 	}
 
 }

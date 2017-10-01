@@ -125,19 +125,31 @@
 		class="com.metamorf.eform.data.access.master.FileChunkDAO" />
 	<bean id="versionDAO" parent="daoTemplate"
 		class="com.metamorf.eform.data.access.master.VersionDAO" />
-	<bean id="runtimeUserMobileDAO" parent="daoTemplate"
-		class="com.metamorf.eform.data.access.user.RuntimeUserMobileDAO" />
+	<bean id="runtimeUserDAO" parent="daoTemplate"
+		class="com.metamorf.eform.data.access.user.RuntimeUserDAO" />
+	<bean id="sendEmailDAO" parent="daoTemplate"
+		class="com.metamorf.eform.data.access.user.SendEmailDAO" />
 
 	<!-- service declaration -->
-	<bean id="runtimeUserMobileService" scope="singleton" parent="txProxyTemplate">
+	<bean id="runtimeUserService" scope="singleton" parent="txProxyTemplate">
 		<property name="target">
-			<ref local="runtimeUserMobileServiceTarget" />
+			<ref local="runtimeUserServiceTarget" />
 		</property>
 	</bean>
 
-	<bean id="runtimeUserMobileServiceTarget" class="com.metamorf.eform.service.user.RuntimeUserMobileService">
-		<constructor-arg ref="runtimeUserMobileDAO" index="0"/>
+	<bean id="runtimeUserServiceTarget" class="com.metamorf.eform.service.user.RuntimeUserService">
+		<constructor-arg ref="runtimeUserDAO" index="0"/>
 		<constructor-arg ref="userService" index="1"/>
+	</bean>
+	
+	<bean id="sendEmailService" scope="singleton" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="sendEmailServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="sendEmailServiceTarget" class="com.metamorf.eform.service.user.SendEmailService">
+		<property name="sendEmailDAO" ref="sendEmailDAO" />
 	</bean>
 	
 	<bean id="loginService" scope="singleton" parent="txProxyTemplate">

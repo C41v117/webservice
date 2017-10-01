@@ -18,6 +18,18 @@ public class SystemParameter {
 	
 	public static int DATA_RETENTION_IN_MONTH = 12;
 	
+	public static int MAX_RETRY_SEND_EMAIL = 1;
+	public static String EMAIL_VERIFICATION_SUBJECT = "Brezyn Email Verification";
+	public static String EMAIL_HOST = "mail.brezyn.com";
+	public static String EMAIL_PORT = "26";
+	public static String EMAIL_USERNAME = "_mainaccount@brezyn.com";
+	public static String EMAIL_PASSWORD = "Kingkong2017";
+	public static String EMAIL_SENDER = "noreply@brezyn.com";
+	public static String DURATION_RETRY_SEND_EMAIL_VERIFICATION = "10";
+
+	public static String APP_URL = "http://localhost:8080/eformws";
+	public static String VERIFICATION_URL = "/user/verification?token=";
+	
 	//HIGH RISK CODE
 	public static String HIGH_RISK_CODE								= "H";
 	public static String NOT_HIGH_RISK_CODE							= "L";
@@ -665,12 +677,6 @@ public class SystemParameter {
 	public static String MAX_RETRY_SEND_EMAIL_EDD_APPROVAL_CUSTOMER = "";
 	public static String DURATION_RETRY_SEND_EMAIL_EDD_APPROVAL_CUSTOMER = "";
 	
-	public static String EMAIL_HOST = "";
-	public static String EMAIL_PORT = "";
-	public static String EMAIL_USERNAME = "";
-	public static String EMAIL_PASSWORD = "";
-	public static String EMAIL_USERNAME_SENDER = "";
-	
 	// PURNA SPECIFIC
 	public static String EMAIL_USERNAME_PURNA = "";
 	public static String EMAIL_PASSWORD_PURNA = "";
@@ -752,7 +758,7 @@ public class SystemParameter {
 	public static String UWMP_PB_BRANCH_LOCATION_STRUCTURE = "40KC,41KC,42KC,43KC";
 	public static String UWMP_PB_SUB_BRANCH_STRUCTURE = "45KCP,46KCP,47KCP,48KCP";
 	
-	public static String EMAIL_TIME_INTERVAL_THREAD=""; // in minutes (ex: 5) -> 5minutes
+	public static String EMAIL_TIME_INTERVAL_THREAD = "5"; // in minutes (ex: 5) -> 5minutes
 	
 	public static String PROCESSING_CODE_PURNA_CREATE_SEMI_ACTIVE 		= "250000";
 	public static String PROCESSING_CODE_PURNA_CREATE_FULLY_ACTIVE 		= "270000";

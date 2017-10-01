@@ -46,6 +46,16 @@ public class UserService implements IBaseService<User>, IUserService {
 	public User findByUsername(String username) throws SystemException{
 		return userDAO.findByUsername(username);
 	}
+
+	@Override
+	public User findByEmail(String email) throws SystemException{
+		return userDAO.findByEmail(email);
+	}
+
+	@Override
+	public User findByVerificationToken(String token) throws SystemException{
+		return userDAO.findByVerificationToken(token);
+	}
 	
 	@Override
 	public PagingWrapper<User> findAllWithPagingWrapper(int startNo,
