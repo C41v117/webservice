@@ -85,6 +85,18 @@ public class UserDAO extends AbstractHibernate4DAO<User, Long> implements IUserD
 	}
 
 	@Override
+	public User findByPasswordToken(String token) throws SystemException{
+		List<SearchFilter> filters = new ArrayList<SearchFilter>();
+		filters.add(new SearchFilter(User.PASSWORD_TOKEN, Operator.EQUALS, token));
+		List<User> result = super.findAll(filters, null, null);
+		
+		if (result.size() > 0) 
+			return result.get(0);
+		else
+			return null;
+	}
+
+	@Override
 	public User findById(Long id) throws SystemException {
 		return super.findByPK(id);
 	}

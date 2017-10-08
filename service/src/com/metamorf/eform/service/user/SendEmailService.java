@@ -90,7 +90,7 @@ public class SendEmailService implements IBaseService<SendEmail>, ISendEmailServ
 			Properties props = new Properties();
 			props.put("mail.smtp.host", SystemParameter.EMAIL_HOST);
 			props.put("mail.smtp.port", SystemParameter.EMAIL_PORT);
-			props.put("mail.smtp.localhost", "https://brezyn.com:2096");
+			props.put("mail.smtp.localhost", "brezyn.com");
 			props.put("mail.smtp.auth", "true");
 			
 			logger.info("prepare properties send email..."); 

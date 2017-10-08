@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.metamorf.eform.common.core.SystemParameter;
 import com.metamorf.eform.common.enumer.EmailStatus;
+import com.metamorf.eform.common.enumer.EmailType;
 import com.metamorf.eform.common.util.AES;
 import com.metamorf.eform.entity.user.RuntimeUser;
 import com.metamorf.eform.entity.user.SendEmail;
@@ -55,34 +56,76 @@ public class UserController extends BaseRestController {
 	}
 
 	@RequestMapping(value = "/verification", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String verification(
-			@RequestParam(value="token",required = true) String token) throws Exception {
-		String tokens = "";
+	public String verification(
+			@RequestParam(value="token",required = true) String tokens) throws Exception {
 		try{
-			AES.generateKey();
-			tokens = AES.decryptString(token);
-		}catch(Exception e){
-			LOGGER.info("Failed - Verification (Error Decrypt), Token: [{}]", token);
-			return "redirect:/badUser.html";
-		}
-		
-		User user = userService.findByVerificationToken(tokens);
-		if(user == null){
-			LOGGER.info("Failed - Verification (User not found), Token: [{}]", tokens);
+			/*String tokens = "";
+			try{
+				AES.generateKey();
+				tokens = AES.decryptString(token);
+			}catch(Exception e){
+				LOGGER.info("Failed - Verification (Error Decrypt), Token: [{}]", token);
+				return "redirect:/badUser.html";
+			}*/
+			
+			User user = userService.findByVerificationToken(tokens);
+			if(user == null){
+				LOGGER.info("Failed - Verification (User not found), Token: [{}]", tokens);
+		        return "redirect:/error400.jsp";
+			}else{
+				if(user.getVerify()){
+					LOGGER.info("Success - Verification (User already verify), Token: [{}]", tokens);
+					return "redirect:/verification/success.jsp";
+				}else{
+					user.setVerify(true);
+					user.setVerifyDate(new Date());
+					userService.saveOrUpdate(user);
 
-	        return "redirect:/badUser.html";
-		}else{
-			if(user.getVerify())
-				return "redirect:/verificationSuccess.html";
-			else{
-				user.setVerify(true);
-				user.setVerifyDate(new Date());
-				userService.saveOrUpdate(user);
-				
-				return "redirect:/verificationSuccess.html";
+					LOGGER.info("Success - Verification (First time verify), Token: [{}]", tokens);
+					return "redirect:/verification/success.jsp";
+				}
 			}
+		}catch(Exception e){
+			LOGGER.error("Error Exception - Verification, Token: [{}]. Exception: [{}]", tokens, e.getMessage());
+			return "redirect:/error400.html";
 		}
-		
+	}
+	
+	@RequestMapping(value = "/submit", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String submit(
+			@RequestParam(value="token",required = true) String tokens,
+			@RequestParam(value="password",required = true) String password) throws Exception {
+		try{
+			/*String tokens = "";
+			try{
+				AES.generateKey();
+				tokens = AES.decryptString(token);
+			}catch(Exception e){
+				LOGGER.info("Failed - Verification (Error Decrypt), Token: [{}]", token);
+				return "redirect:/badUser.html";
+			}*/
+			
+			User user = userService.findByPasswordToken(tokens);
+			if(user == null){
+				LOGGER.info("Failed - Submit (User not found), Token: [{}]", tokens);
+		        return "redirect:/error400.jsp";
+			}else{
+				if(user.getVerify()){
+					LOGGER.info("Success - Submit (User already verify), Token: [{}]", tokens);
+					return "redirect:/forgotPassword/success.jsp";
+				}else{
+					user.setPassword(passwordAuthenticationService.generatePassword(password));
+					user.setPasswordToken("");
+					userService.saveOrUpdate(user);
+
+					LOGGER.info("Success - Submit (First time verify), Token: [{}]", tokens);
+					return "redirect:/forgotPassword/success.jsp";
+				}
+			}
+		}catch(Exception e){
+			LOGGER.error("Error Exception - Submit, Token: [{}]. Exception: [{}]", tokens, e.getMessage());
+			return "redirect:/error400.html";
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -117,7 +160,7 @@ public class UserController extends BaseRestController {
 				return new Response(Constant.ERROR, properties.getProperty("login.error"));
 			}else if(!user.getVerify()){
 				LOGGER.info("Failed - Login (User hasn't verified), Username: [{}], Ref No: [{}]", username, loginReq.getReferenceNo());
-				return new Response(Constant.ERROR, properties.getProperty("login.error"));
+				return new Response(Constant.ERROR_VERIFY, properties.getProperty("login.error.verify"));
 			}else{
 				RuntimeUser runtimeUser = runtimeUserService.findRuntimeUserMobileByUsername(username);
 				String token = null;
@@ -153,7 +196,7 @@ public class UserController extends BaseRestController {
 				return new Response(Constant.SUCCESS, properties.getProperty("login.success"), gson.toJson(user));
 			}
 		}catch(Exception e){
-			LOGGER.error("Error Exception - Login from  User Name : [{}], reference no: [{}]. Exception: [{}]",
+			LOGGER.error("Error Exception - Login, Username: [{}], reference no: [{}]. Exception: [{}]",
 					username, loginReq.getReferenceNo(), e.getMessage());
 			return new Response(Constant.ERROR, properties.getProperty("server.exception"));
 		}
@@ -179,12 +222,12 @@ public class UserController extends BaseRestController {
 			User user = userService.findByUsername(username);
 			if(user != null){
 				LOGGER.info("Failed - Signup (Username already exist), Username: [{}], Ref No: [{}]", username, req.getReferenceNo());
-				return new Response(Constant.SUCCESS, properties.getProperty("signup.usernameExist"));
+				return new Response(Constant.ERROR, properties.getProperty("signup.usernameExist"));
 			}else{
 				user = userService.findByEmail(email);
 				if(user != null){
 					LOGGER.info("Failed - Signup (Email already used), Username: [{}], Ref No: [{}]", username, req.getReferenceNo());
-					return new Response(Constant.SUCCESS, properties.getProperty("signup.emailUsed"));
+					return new Response(Constant.ERROR, properties.getProperty("signup.emailUsed"));
 				}
 			}
 			User newUser = new User();
@@ -207,14 +250,67 @@ public class UserController extends BaseRestController {
 			sendEmail.setEmailStatus(EmailStatus.QUEUE);
 			sendEmail.setRetry(0);
 			sendEmail.setMaxCountRetry(SystemParameter.MAX_RETRY_SEND_EMAIL);
+			sendEmail.setType(EmailType.VERIFICATION);
 			
 			sendEmailService.saveOrUpdate(sendEmail);
 			
 			LOGGER.info("Success - Signup, Username: [{}], Ref No: [{}]", username, req.getReferenceNo());
 			return new Response(Constant.SUCCESS, properties.getProperty("signup.success"));
 		}catch(Exception e){
-			LOGGER.error("Error Exception - Signup from  User Name : [{}], reference no: [{}]. Exception: [{}]",
+			LOGGER.error("Error Exception - Signup, Username: [{}], reference no: [{}]. Exception: [{}]",
 					username, req.getReferenceNo(), e.getMessage());
+			return new Response(Constant.ERROR, properties.getProperty("server.exception"));
+		}
+	}
+
+	@RequestMapping(value = "/forgot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Response forgot(@RequestBody CLVSignupReq req) throws Exception {
+		String email = "";
+		try{
+			AES.generateKey();
+			email = AES.decryptString(req.getEmail());
+		}catch(Exception e){
+			LOGGER.info("Failed - Forgot (Error Decrypt), Email: [{}]", req.getEmail());
+			return new Response(Constant.ERROR, properties.getProperty("server.exception"));
+		}
+		
+		try{
+			LOGGER.info("Begin - Forgot, Email: [{}], Ref No: [{}]", email, req.getReferenceNo());
+			User user = userService.findByEmail(email);
+			if(user == null){
+				LOGGER.info("Failed - Forgot (User not found), Email: [{}], Ref No: [{}]", email, req.getReferenceNo());
+				return new Response(Constant.ERROR, properties.getProperty("forgot.notFound"));
+			}else{
+				if(user.getLock()){
+					LOGGER.info("Failed - Forgot (User is locked), Email: [{}], Ref No: [{}]", email, req.getReferenceNo());
+					return new Response(Constant.ERROR, properties.getProperty("forgot.locked"));
+				}else if(!user.getVerify()){
+					LOGGER.info("Failed - Forgot (User hasn't verify yet), Email: [{}], Ref No: [{}]", email, req.getReferenceNo());
+					return new Response(Constant.ERROR, properties.getProperty("forgot.verify"));
+				}
+			}
+	        String token = UUID.randomUUID().toString();
+	        user.setPasswordToken(token);
+			
+			userService.saveOrUpdate(user);
+
+			SendEmail sendEmail = new SendEmail();
+			sendEmail.setUserId(user.getId());
+			sendEmail.setUsername(user.getUsername());
+			sendEmail.setEmail(email);
+			sendEmail.setCreatedDate(new Date());
+			sendEmail.setEmailStatus(EmailStatus.QUEUE);
+			sendEmail.setRetry(0);
+			sendEmail.setMaxCountRetry(SystemParameter.MAX_RETRY_SEND_EMAIL);
+			sendEmail.setType(EmailType.FORGOT_PASSWORD);
+			
+			sendEmailService.saveOrUpdate(sendEmail);
+			
+			LOGGER.info("Success - Forget, Email: [{}], Ref No: [{}]", email, req.getReferenceNo());
+			return new Response(Constant.SUCCESS, properties.getProperty("forgot.success"));
+		}catch(Exception e){
+			LOGGER.error("Error Exception - Forget, Email : [{}], reference no: [{}]. Exception: [{}]",
+					email, req.getReferenceNo(), e.getMessage());
 			return new Response(Constant.ERROR, properties.getProperty("server.exception"));
 		}
 	}
@@ -225,7 +321,7 @@ public class UserController extends BaseRestController {
 		String email = "";
 		try {
 			AES.generateKey();
-			username = AES.encryptString("test");
+			username = AES.encryptString("53ed7dea-76b6-49eb-9670-697296c5ca35");
 			pwd = AES.encryptString("test");
 			email = AES.encryptString("calvin.olsen92@gmail.com");
 		} catch (Exception e) {

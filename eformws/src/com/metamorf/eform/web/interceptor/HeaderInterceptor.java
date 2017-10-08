@@ -28,7 +28,9 @@ public class HeaderInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		//bypass if BYPASS_REST_AUTHENTICATION is set to true "OR" request uri contains swagger url
-		if (SystemParameter.BYPASS_REST_AUTHENTICATION || request.getRequestURI().contains(SWAGGER)) {
+		if (SystemParameter.BYPASS_REST_AUTHENTICATION || request.getRequestURI().contains(SWAGGER) || 
+				request.getRequestURI().contains(SystemParameter.VERIFICATION_URL) ||
+				request.getRequestURI().contains(SystemParameter.SUBMIT_FORGOT_PASSWORD_URL)) {
 			return true;
 		} else { 
 			String authorizationHeader = request.getHeader("X-DTPkey");

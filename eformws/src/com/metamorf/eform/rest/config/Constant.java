@@ -9,6 +9,8 @@ public class Constant {
 	
 	public static final String ERROR 						= "error";
 	
+	public static final String ERROR_VERIFY					= "error_verify";
+	
 	public static final String ERROR_TOKEN					= "error_token";
 	
 	public static final String CHANGE 						= "change";

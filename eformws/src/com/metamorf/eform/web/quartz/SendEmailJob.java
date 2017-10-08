@@ -22,7 +22,7 @@ import com.metamorf.eform.common.data.util.SearchFilter;
 import com.metamorf.eform.common.data.util.SearchOrder;
 import com.metamorf.eform.common.data.util.SearchOrder.Sort;
 import com.metamorf.eform.common.enumer.EmailStatus;
-import com.metamorf.eform.common.util.AES;
+import com.metamorf.eform.common.enumer.EmailType;
 import com.metamorf.eform.entity.user.SendEmail;
 import com.metamorf.eform.entity.user.User;
 import com.metamorf.eform.interfaces.user.ISendEmailService;
@@ -129,7 +129,7 @@ public class SendEmailJob extends QuartzJobBean implements StatefulJob{
 					newCal.setTime(new Date());
 
 					sendEmail.setSubjectMessage(SystemParameter.EMAIL_VERIFICATION_SUBJECT);
-					sendEmail.setBodyMessage(generateBodyEmail(user));
+					sendEmail.setBodyMessage(generateBodyEmail(user, sendEmail.getType()));
 					
 					if(sendEmail.getEmailStatus() == EmailStatus.QUEUE){
 						sendEmail.setEmailStatus(EmailStatus.SENT);
@@ -154,18 +154,23 @@ public class SendEmailJob extends QuartzJobBean implements StatefulJob{
 		logger.info("Finished send email");
 	}
 	
-	private String generateBodyEmail(User user) throws Exception{
+	private String generateBodyEmail(User user, EmailType type) throws Exception{
 		try{
 			VelocityEngine ve = new VelocityEngine();
 			ve.setProperty("resource.loader", "class");
 			ve.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
 	        ve.init();
-	        
-	        Template t = ve.getTemplate("TemplateEmailVerification.vm");
+	        Template t = null;
+	        if(type == EmailType.VERIFICATION)
+		        t = ve.getTemplate("Verification.vm");
+	        else if(type == EmailType.FORGOT_PASSWORD)
+	        	t = ve.getTemplate("ForgotPassword.vm");
+
 	        VelocityContext context = new VelocityContext();
+	        
 	        context.put("username", user.getUsername());
-	        context.put("link", generateLink(user));
+	        context.put("link", generateLink(user, type));
 	        
 	        StringWriter writer = new StringWriter();
 	        t.merge(context, writer);
@@ -177,16 +182,20 @@ public class SendEmailJob extends QuartzJobBean implements StatefulJob{
 		}
 	}
 	
-	private String generateLink(User user){
-		String token = "";
+	private String generateLink(User user, EmailType type){
+		/*String token = "";
 		try {
 			AES.generateKey();
 			token = AES.encryptString(user.getVerificationToken());
 		} catch (Exception e) {
 			logger.error("error encrypt verification token : ", e);
-		}
-		
-		return SystemParameter.APP_URL + SystemParameter.VERIFICATION_URL + token;
+		}*/
+		if(type == EmailType.VERIFICATION)
+			return SystemParameter.APP_URL + SystemParameter.VERIFICATION_URL + "?token=" + user.getVerificationToken();
+		else if(type == EmailType.FORGOT_PASSWORD)
+			return SystemParameter.APP_URL + SystemParameter.FORGOT_PASSWORD_URL + "?token=" + user.getPasswordToken();
+
+		return "";
 	}
 	
 }

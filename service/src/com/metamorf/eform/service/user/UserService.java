@@ -58,6 +58,11 @@ public class UserService implements IBaseService<User>, IUserService {
 	}
 	
 	@Override
+	public User findByPasswordToken(String token) throws SystemException{
+		return userDAO.findByPasswordToken(token);
+	}
+	
+	@Override
 	public PagingWrapper<User> findAllWithPagingWrapper(int startNo,
 			int offset, List<SearchFilter> searchFilters,
 			List<SearchOrder> searchOrders) throws SystemException {

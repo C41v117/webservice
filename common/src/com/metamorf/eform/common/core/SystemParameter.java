@@ -28,7 +28,9 @@ public class SystemParameter {
 	public static String DURATION_RETRY_SEND_EMAIL_VERIFICATION = "10";
 
 	public static String APP_URL = "http://localhost:8080/eformws";
-	public static String VERIFICATION_URL = "/user/verification?token=";
+	public static String VERIFICATION_URL = "/rest/user/verification";
+	public static String FORGOT_PASSWORD_URL = "/forgotPassword/forgot.jsp";
+	public static String SUBMIT_FORGOT_PASSWORD_URL = "/rest/user/submit";
 	
 	//HIGH RISK CODE
 	public static String HIGH_RISK_CODE								= "H";

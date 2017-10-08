@@ -11,13 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.metamorf.eform.common.enumer.EmailStatus;
+import com.metamorf.eform.common.enumer.EmailType;
 
 @Entity(name="SEND_EMAIL")
 public class SendEmail {
 
 	public static final String[] MAINTENANCE_LIST_FIELDS = {
 		"id", "userId", "username", "email", "emailStatus", "subjectMessage",  
-		"bodyMessage", "retry", "createdDate", "lastSendDate", "maxCountRetry"
+		"bodyMessage", "retry", "createdDate", "lastSendDate", "maxCountRetry", "type"
 	};
 	public static final String EMAIL_STATUS = "emailStatus";
 	public static final String CREATED_DATE = "createdDate";
@@ -39,6 +40,10 @@ public class SendEmail {
 	@Column(name="EMAIL_STATUS")
 	@Enumerated(EnumType.ORDINAL)
 	private EmailStatus emailStatus;
+
+	@Column(name="TYPE")
+	@Enumerated(EnumType.ORDINAL)
+	private EmailType type;
 	
 	@Column(name="SUBJECT_MESSAGE")
 	private String subjectMessage;
@@ -144,6 +149,14 @@ public class SendEmail {
 
 	public void setMaxCountRetry(Integer maxCountRetry) {
 		this.maxCountRetry = maxCountRetry;
+	}
+
+	public EmailType getType() {
+		return type;
+	}
+
+	public void setType(EmailType type) {
+		this.type = type;
 	}
 	
 }

@@ -17,6 +17,7 @@ public class User implements Serializable{
 	public static final String USERNAME = "username";
 	public static final String EMAIL = "email";
 	public static final String VERIFICATION_TOKEN = "verificationToken";
+	public static final String PASSWORD_TOKEN = "passwordToken";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -50,9 +51,6 @@ public class User implements Serializable{
 	@Column(name="LOCKED_DATE")
 	private Date lockedDate;
 	
-	@Column(name = "IS_REQ_CHANGE_PWD")
-	private Boolean reqChangePwd;
-	
 	@Column(name="APK_VERSION")
 	private String apkVersion;
 	
@@ -70,6 +68,12 @@ public class User implements Serializable{
 	
 	@Column(name="VERIFICATION_TOKEN")
 	private String verificationToken;
+	
+	@Column(name="PASSWORD_TOKEN")
+	private String passwordToken;
+	
+	@Column(name="PWD_TOKEN_EXPIRE")
+	private Date pwdTokenExpire;
 
 	public Long getId() {
 		return id;
@@ -143,14 +147,6 @@ public class User implements Serializable{
 		this.lockedDate = lockedDate;
 	}
 
-	public Boolean getReqChangePwd() {
-		return reqChangePwd;
-	}
-
-	public void setReqChangePwd(Boolean reqChangePwd) {
-		this.reqChangePwd = reqChangePwd;
-	}
-
 	public Boolean getLock() {
 		return lock;
 	}
@@ -205,6 +201,22 @@ public class User implements Serializable{
 
 	public void setVerificationToken(String verificationToken) {
 		this.verificationToken = verificationToken;
+	}
+
+	public String getPasswordToken() {
+		return passwordToken;
+	}
+
+	public void setPasswordToken(String passwordToken) {
+		this.passwordToken = passwordToken;
+	}
+
+	public Date getPwdTokenExpire() {
+		return pwdTokenExpire;
+	}
+
+	public void setPwdTokenExpire(Date pwdTokenExpire) {
+		this.pwdTokenExpire = pwdTokenExpire;
 	}
 
 }

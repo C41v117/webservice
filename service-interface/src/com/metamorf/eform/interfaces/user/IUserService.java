@@ -8,4 +8,5 @@ public interface IUserService extends IBaseService<User>{
 	public User findByUsername(String username) throws SystemException;
 	public User findByEmail(String email) throws SystemException;
 	public User findByVerificationToken(String token) throws SystemException;
+	public User findByPasswordToken(String token) throws SystemException;
 }
